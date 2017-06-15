@@ -66,8 +66,6 @@
     <Compile Include="Providers\HouseManagmentProvider.cs" />
     <Compile Include="ServicePointConfig.cs" />
     <Compile Include="Service\Async\HouseManagement.v11.2.0.6.cs" />
-    <Compile Include="Service\interfaces.cs" />
-    <Compile Include="Service\v11_2_0_6.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

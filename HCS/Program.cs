@@ -13,23 +13,27 @@ namespace HCS {
     class Program {
         static void Main(string[] args) {
 
+            // выбераем сертификат
             var cert = GetCert();
             if (cert == null) return;
 
             Console.WriteLine("Укажите pin ЭЦП");
             string pin = Console.ReadLine();
 
+            // иницализируем менеджер конечных точек
             ServicePointConfig.InitConfig(cert.Item2, pin, cert.Item1);
             
-                
+            // создаем конфиг   
             var config = new ClientConfig {
-                UseTunnel = true,
+                UseTunnel = false,
+                IsPPAK = false,
                 CertificateThumbprint = cert.Item2,
                 OrgPPAGUID = Guid.NewGuid().ToString(),
                 OrgEntityGUID = Guid.NewGuid().ToString()
 
             };
 
+            // формируем запрос
             var request = new importAccountDataRequest {
                 RequestHeader = new RequestHeader {
                     ItemElementName = ItemChoiceType.orgPPAGUID,
@@ -61,11 +65,13 @@ namespace HCS {
                     }
                 }
             };
-
-            var provider = new HouseManagmentProvider<importAccountDataRequest, AckRequestAck>(config);
+          
 
             try
             {
+                
+                var provider = new HouseManagmentProvider<importAccountDataRequest, AckRequestAck>(config);
+
                 var responce = provider.Send(request);
                 Console.WriteLine($"ОК");
             }catch(Exception ex)
