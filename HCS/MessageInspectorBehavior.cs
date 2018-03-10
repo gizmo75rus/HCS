@@ -14,7 +14,7 @@ using System.Xml;
 using Xades.Implementations;
 
 namespace HCS {
-    internal class MyMessageInspector : IClientMessageInspector {
+    internal class MessageInspectorBehavior : IClientMessageInspector {
         public object BeforeSendRequest(ref Message request, IClientChannel channel) {
             try
             {
@@ -105,7 +105,7 @@ namespace HCS {
         }
 
         public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime) {
-            clientRuntime.MessageInspectors.Add(new MyMessageInspector());
+            clientRuntime.MessageInspectors.Add(new MessageInspectorBehavior());
         }
     }
 
