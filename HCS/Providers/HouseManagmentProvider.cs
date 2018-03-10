@@ -12,6 +12,7 @@ namespace HCS.Providers {
     /// <typeparam name="TRequest">тип запроса</typeparam>
     /// <typeparam name="TAck">тип объекта ответа</typeparam>
     public class HouseManagmentProvider:  ClientBaseType,IProviderBase {
+        public EndPointNames EndPointName => EndPointNames.HouseManagementAsync;
 
         public HouseManagmentProvider(ClientConfig config) : base(config) {
             remoteAddress = GetEndpointAddress(Constants.EndPointPath.HouseManagementAsync);
@@ -24,21 +25,21 @@ namespace HCS.Providers {
         /// <returns>Объект реализующий IAck</returns>
         IAck IProviderBase.Send<T>(T request)
         {
-            using (var proxy = new HouseManagementPortsTypeAsyncClient(binding, remoteAddress)) {
+            using (var proxy = new HouseManagementPortsTypeAsyncClient(_binding, remoteAddress)) {
 
                 proxy.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
 
-                if (!base.config.IsPPAK) {
+                if (!base._config.IsPPAK) {
                     proxy.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
                     proxy.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
                 }
 
-                if (!base.config.UseTunnel) {
+                if (!base._config.UseTunnel) {
                     proxy.ClientCredentials.ClientCertificate.SetCertificate(
                      StoreLocation.CurrentUser,
                      StoreName.My,
                      X509FindType.FindByThumbprint,
-                     base.config.CertificateThumbprint);
+                     base._config.CertificateThumbprint);
                 }
 
                 switch (typeof(T).Name) {
@@ -99,20 +100,20 @@ namespace HCS.Providers {
         {
             result = null;
 
-            using (var proxy = new HouseManagementPortsTypeAsyncClient(binding, remoteAddress)) {
+            using (var proxy = new HouseManagementPortsTypeAsyncClient(_binding, remoteAddress)) {
                 proxy.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
 
-                if (!base.config.IsPPAK) {
+                if (!base._config.IsPPAK) {
                     proxy.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
                     proxy.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
                 }
 
-                if (!base.config.UseTunnel) {
+                if (!base._config.UseTunnel) {
                     proxy.ClientCredentials.ClientCertificate.SetCertificate(
                      StoreLocation.CurrentUser,
                      StoreName.My,
                      X509FindType.FindByThumbprint,
-                     base.config.CertificateThumbprint);
+                     base._config.CertificateThumbprint);
                 }
 
                 try {
@@ -121,7 +122,7 @@ namespace HCS.Providers {
                         RequestHeader = new RequestHeader {
                             MessageGUID = ack.MessageGUID,
                             ItemElementName = ItemChoiceType.orgPPAGUID,
-                            Item = config.OrgPPAGUID,
+                            Item = _config.OrgPPAGUID,
                             Date = DateTime.Now
                         }
                     });

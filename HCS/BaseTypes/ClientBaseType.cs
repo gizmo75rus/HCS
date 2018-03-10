@@ -8,16 +8,16 @@ using System.Text;
 
 namespace HCS.BaseTypes {
     public abstract class ClientBaseType {
-        public ClientConfig config;
-        protected CustomBinding binding;
+        public ClientConfig _config;
+        protected CustomBinding _binding;
         protected EndpointAddress remoteAddress;
 
         public ClientBaseType(ClientConfig config) {
-            this.config = config;
+            _config = config;
 
-            binding = new CustomBinding();
+            _binding = new CustomBinding();
 
-            binding.Elements.Add(new TextMessageEncodingBindingElement {
+            _binding.Elements.Add(new TextMessageEncodingBindingElement {
                 MessageVersion = MessageVersion.Soap11,
                 WriteEncoding = Encoding.UTF8
             });
@@ -29,7 +29,7 @@ namespace HCS.BaseTypes {
                     throw new Exception("stunnel не запущен");
                 }
 
-                binding.Elements.Add(new HttpTransportBindingElement {
+                _binding.Elements.Add(new HttpTransportBindingElement {
                     AuthenticationScheme = (config.IsPPAK ? System.Net.AuthenticationSchemes.Digest : System.Net.AuthenticationSchemes.Basic),
                     MaxReceivedMessageSize = int.MaxValue,
                     UseDefaultWebProxy = false
@@ -37,7 +37,7 @@ namespace HCS.BaseTypes {
             }
             else
             {
-                binding.Elements.Add(new HttpsTransportBindingElement {
+                _binding.Elements.Add(new HttpsTransportBindingElement {
                     AuthenticationScheme = (config.IsPPAK ? System.Net.AuthenticationSchemes.Digest : System.Net.AuthenticationSchemes.Basic),
                     MaxReceivedMessageSize = int.MaxValue,
                     UseDefaultWebProxy = false,
@@ -48,10 +48,10 @@ namespace HCS.BaseTypes {
         }
 
         public EndpointAddress GetEndpointAddress(string endpointName) {
-            if (config.UseTunnel)
+            if (_config.UseTunnel)
                 return new EndpointAddress($"http://{Constants.Address.UriTunnel}/{endpointName}");
-            else
-                return (config.IsPPAK ? new EndpointAddress($"https://{Constants.Address.UriPPAK}/{endpointName}")
+
+            return (_config.IsPPAK ? new EndpointAddress($"https://{Constants.Address.UriPPAK}/{endpointName}")
                     : new EndpointAddress($"https://{Constants.Address.UriSIT}/{endpointName}"));
         }
     }

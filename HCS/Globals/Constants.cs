@@ -23,4 +23,37 @@
             public const string Passwd = "rZ_GG72XS^Vf55ZW";// tv,n8!Ya
         }
     }
+
+    /// <summary>
+    /// Имена конечных точек
+    /// </summary>
+    public enum EndPointNames
+    {
+         OrgRegistryCommon,
+         NsiCommon,
+         Nsi,
+         HouseManagement,
+         HouseManagementAsync,
+         Bills,
+         BillsAsync,
+         Licenses,
+         DeviceMetering
+    }
+
+    /// <summary>
+    /// Статусы сообщения
+    /// </summary>
+    public enum MessageStatuses
+    {
+        Ready,
+        SendOk,
+        SendError,
+        SendCriticalError,
+        SendTimeout,
+        GetResultOk,
+        GetResultError,
+        GetResultCriticalError,
+        GetResultTimeout,
+        EndLive,
+    }
 }
