@@ -8,6 +8,8 @@ using HCS.Service.Async.HouseManagement.v11_2_0_6;
 using HCS.BaseTypes;
 using System.Security.Cryptography.X509Certificates;
 using HCS.Helpers;
+using HCS.Interaces;
+using System.Threading;
 
 namespace HCS {
     class Program {
@@ -65,14 +67,37 @@ namespace HCS {
                     }
                 }
             };
-          
+
+            IGetStateResult result = new getStateResult();
 
             try
             {
-                
-                var provider = new HouseManagmentProvider<importAccountDataRequest, AckRequestAck>(config);
 
-                var responce = provider.Send(request);
+                IProviderBase provider = new HouseManagmentProvider(config);
+
+                Console.WriteLine("Отправка запроса");
+
+                var ack = provider.Send(request);
+
+                Console.WriteLine("Получение результата");
+
+                int attems = 5;
+                while(attems != 5) {
+
+                    Console.WriteLine($"Осталось попыток {attems}");
+
+                    if (provider.GetResult(ack, out result))
+                        break;
+
+                    Thread.Sleep(30000);
+
+                    attems--;
+                }
+
+                result.Items.OfType<ErrorMessageType>().ToList().ForEach(x => {
+                    Console.WriteLine($"В ответе имеется ошибка {x.ErrorCode}{x.Description}");
+                });
+
                 Console.WriteLine($"ОК");
             }catch(Exception ex)
             {
