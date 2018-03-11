@@ -68,7 +68,7 @@
     <Compile Include="Interfaces\IGetStateResult.cs" />
     <Compile Include="Interfaces\IMessageBase.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
-    <Compile Include="MyBehavior.cs" />
+    <Compile Include="MessageInspectorBehavior.cs" />
     <Compile Include="Polices\SoupFaultPolicy.cs" />
     <Compile Include="Polices\Actions.cs" />
     <Compile Include="Polices\ActionByFault.cs" />
