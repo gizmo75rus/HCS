@@ -12,7 +12,7 @@ namespace HCS.Interaces
         /// <summary>
         /// Конечная точка (адресат)
         /// </summary>
-        EndPointNames EndPoint { get; set; }
+        EndPoints EndPoint { get; set; }
 
         /// <summary>
         /// Тип запроса

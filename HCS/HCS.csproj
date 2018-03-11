@@ -58,19 +58,32 @@
   <ItemGroup>
     <Compile Include="BaseTypes\ClientBaseType.cs" />
     <Compile Include="BaseTypes\ClientConfig.cs" />
+    <Compile Include="BaseTypes\Result.cs" />
+    <Compile Include="Core\ServiceProviderCore.cs" />
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\CertificateHelper.cs" />
     <Compile Include="Interaces\IAck.cs" />
+    <Compile Include="Interaces\IFault.cs" />
     <Compile Include="Interaces\IGetStateResult.cs" />
     <Compile Include="Interaces\IMessageBase.cs" />
-    <Compile Include="Interaces\IProviderBase.cs" />
+    <Compile Include="Interaces\IProvider.cs" />
     <Compile Include="MyBehavior.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\BillsProvider.cs" />
+    <Compile Include="Providers\DeviceMeteringProvider.cs" />
     <Compile Include="Providers\HouseManagmentProvider.cs" />
     <Compile Include="ServicePointConfig.cs" />
     <Compile Include="Service\AckImplement.cs" />
-    <Compile Include="Service\Async\HouseManagement.v11.2.0.6.cs" />
+    <Compile Include="Service\Async\Bills.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\DeviceMetering.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\HouseManagement.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\Licenses.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\Nsi.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\NsiCommon.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\OrganizationsRegistry.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\OrganizationsRegistryCommon.v11.10.0.13.cs" />
+    <Compile Include="Service\Async\Payment.v11.10.0.13.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

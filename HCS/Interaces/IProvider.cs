@@ -2,12 +2,12 @@
 
 namespace HCS.Interaces
 {
-    public interface IProviderBase
+    public interface IProvider
     {
         /// <summary>
         /// Конечная точка провайдера
         /// </summary>
-        EndPointNames EndPointName { get; }
+        EndPoints EndPoint { get; }
 
         /// <summary>
         /// Отправтиь запрос
