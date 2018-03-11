@@ -1,44 +1,72 @@
-﻿namespace HCS.Globals {
-    public static class Constants {
+﻿using System.Collections.Generic;
+
+namespace HCS.Globals {
+    public static class Constants
+    {
         internal const string SignElementId = "signed-data-container";
-        public static class Address {
+        public static class Address
+        {
             public const string UriPPAK = "api.dom.gosuslugi.ru";
             public const string UriSIT = "217.107.108.147:10081"; //SIT1
             public const string UriSIT2 = "217.107.108.156:10081"; //SIT2
             public const string UriTunnel = "127.0.0.1:8080";
         }
-        public static class EndPointPath {
-            public const string OrgRegistryCommon = "ext-bus-org-registry-common-service/services/OrgRegistryCommon";
-            public const string NsiCommon = "ext-bus-nsi-common-service/services/NsiCommon";
-            public const string Nsi = "ext-bus-nsi-service/services/Nsi";
-            public const string HouseManagement = "ext-bus-home-management-service/services/HomeManagement";
-            public const string HouseManagementAsync = "ext-bus-home-management-service/services/HomeManagementAsync";
-            public const string Bills = "ext-bus-bills-service/services/Bills";
-            public const string BillsAsync = "ext-bus-bills-service/services/BillsAsync";
-            public const string Licenses = "ext-bus-licenses-service/services/Licenses";
-            public const string DeviceMetering = "/ext-bus-device-metering-service/services/DeviceMetering";
+        public static class EndPointLocator
+        {
+            static Dictionary<EndPoints, string> _endPoints;
+            static EndPointLocator()
+            {
+                if (_endPoints == null)
+                    _endPoints = new Dictionary<EndPoints, string>();
+
+                _endPoints.Add(EndPoints.Bills, "ext-bus-bills-service/services/Bills");
+                _endPoints.Add(EndPoints.BillsAsync, "ext-bus-bills-service/services/BillsAsync");
+                _endPoints.Add(EndPoints.DeviceMetering, "ext-bus-device-metering-service/services/DeviceMetering");
+                _endPoints.Add(EndPoints.DeviceMeteringAsync, "ext-bus-device-metering-service/services/DeviceMeteringAsync");
+                _endPoints.Add(EndPoints.HouseManagement, "ext-bus-home-management-service/services/HomeManagement");
+                _endPoints.Add(EndPoints.HouseManagementAsync, "ext-bus-home-management-service/services/HomeManagementAsync");
+                _endPoints.Add(EndPoints.Licenses, "ext-bus-licenses-service/services/Licenses");
+                _endPoints.Add(EndPoints.Nsi, "ext-bus-nsi-service/services/Nsi");
+                _endPoints.Add(EndPoints.NsiAsync, "ext-bus-nsi-service/services/NsiAsync");
+                _endPoints.Add(EndPoints.NsiCommon, "ext-bus-nsi-common-service/services/NsiCommon");
+                _endPoints.Add(EndPoints.NsiCommonAsync, "ext-bus-nsi-common-service/services/NsiCommonAsync");
+                _endPoints.Add(EndPoints.OrgRegistryCommon, "ext-bus-org-registry-common-service/services/OrgRegistryCommon");
+                _endPoints.Add(EndPoints.OrgRegistryCommonAsync, "ext-bus-org-registry-common-service/services/OrgRegistryCommonAsync");
+
+            }
+            public static string GetPath(EndPoints endPoint)
+            {
+                return _endPoints[endPoint];
+            }
         }
-        public static class UserAuth {
-            public const string Name = "sit"; // lanit
-            public const string Passwd = "rZ_GG72XS^Vf55ZW";// tv,n8!Ya
+        public static class UserAuth
+        {
+            public const string Name = "sit";
+            public const string Passwd = "xw{p&&Ee3b9r8?amJv*]";
         }
     }
 
     /// <summary>
     /// Имена конечных точек
     /// </summary>
-    public enum EndPointNames
+    public enum EndPoints
     {
-         OrgRegistryCommon,
-         NsiCommon,
-         Nsi,
-         HouseManagement,
-         HouseManagementAsync,
-         Bills,
-         BillsAsync,
-         Licenses,
-         DeviceMetering
+        OrgRegistryCommon,
+        OrgRegistryCommonAsync,
+        NsiCommon,
+        NsiCommonAsync,
+        Nsi,
+        NsiAsync,
+        HouseManagement,
+        HouseManagementAsync,
+        Bills,
+        BillsAsync,
+        Licenses,
+        LicensesAsync,
+        DeviceMetering,
+        DeviceMeteringAsync
     }
+
 
     /// <summary>
     /// Статусы сообщения

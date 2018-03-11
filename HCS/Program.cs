@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HCS.Service.Async.HouseManagement.v11_2_0_6;
+using HCS.Service.Async.HouseManagement.v11_10_0_13;
 using HCS.BaseTypes;
 using System.Security.Cryptography.X509Certificates;
 using HCS.Helpers;
@@ -20,7 +20,7 @@ namespace HCS {
             if (cert == null) return;
 
             Console.WriteLine("Укажите pin ЭЦП");
-            string pin = Console.ReadLine();
+            string pin = string.Empty;//Console.ReadLine();
 
             // иницализируем менеджер конечных точек
             ServicePointConfig.InitConfig(cert.Item2, pin, cert.Item1);
@@ -30,68 +30,50 @@ namespace HCS {
                 UseTunnel = false,
                 IsPPAK = false,
                 CertificateThumbprint = cert.Item2,
-                OrgPPAGUID = Guid.NewGuid().ToString(),
-                OrgEntityGUID = Guid.NewGuid().ToString()
+                OrgPPAGUID = "b14c8b87-6d0d-4854-a97c-74d34e1a8ca1",
+                OrgEntityGUID = "c3ffd8b6-cda3-4eb5-9696-30fee607c8b3"
 
             };
 
-            // формируем запрос
-            var request = new importAccountDataRequest {
+            //7263796e-1d5a-4535-8def-93315e8975db
+            var request = new exportHouseDataRequest {
                 RequestHeader = new RequestHeader {
                     ItemElementName = ItemChoiceType.orgPPAGUID,
                     Item = config.OrgPPAGUID,
                     Date = DateTime.Now,
                     MessageGUID = Guid.NewGuid().ToString().ToLower(),
                 },
-                importAccountRequest = new importAccountRequest {
+                exportHouseRequest = new exportHouseRequest {
                     Id = Globals.Constants.SignElementId,
-                    Account = new importAccountRequestAccount[] {
-                        new importAccountRequestAccount {
-                                AccountNumber = "4546464646454",
-                                TransportGUID = Guid.NewGuid().ToString(),
-                                Accommodation = new AccountTypeAccommodation[] {
-                                    new AccountTypeAccommodation {
-                                        ItemElementName = ItemChoiceType9.PremisesGUID,
-                                        Item = Guid.NewGuid().ToString()
-                                    }
-                                },
-                                PayerInfo = new AccountTypePayerInfo { },
-                                CreationDateSpecified = false,
-                                LivingPersonsNumberSpecified = false,
-                                ResidentialSquareSpecified = false,
-                                TotalSquareSpecified = false,
-                                HeatedAreaSpecified = false,
-                                ItemElementName = ItemChoiceType8.isUOAccount,
-                                Item = true
-                        }
-                    }
+                    FIASHouseGuid = "7263796e-1d5a-4535-8def-93315e8975db",
                 }
             };
 
-            IGetStateResult result = new getStateResult();
+          
 
             try
             {
 
-                IProviderBase provider = new HouseManagmentProvider(config);
+                IProvider provider = new HouseManagmentProvider(config);
 
                 Console.WriteLine("Отправка запроса");
-
                 var ack = provider.Send(request);
 
-                Console.WriteLine("Получение результата");
+                Console.WriteLine($"Запрос принят в обработку, идентификатор ответа {ack.MessageGUID}");
 
-                int attems = 5;
-                while(attems != 5) {
+                
+                IGetStateResult result = new getStateResult();
+                int attems = 1;
 
-                    Console.WriteLine($"Осталось попыток {attems}");
+                while (true) {
+
+                    Console.WriteLine($"Получение результата, попытка {attems}");
 
                     if (provider.GetResult(ack, out result))
                         break;
 
-                    Thread.Sleep(30000);
-
-                    attems--;
+                    Thread.Sleep(5000);
+                    attems++;
                 }
 
                 result.Items.OfType<ErrorMessageType>().ToList().ForEach(x => {

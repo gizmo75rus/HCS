@@ -1,5 +1,6 @@
 ﻿using HCS.Globals;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
@@ -10,7 +11,7 @@ namespace HCS.BaseTypes {
     public abstract class ClientBaseType {
         public ClientConfig _config;
         protected CustomBinding _binding;
-        protected EndpointAddress remoteAddress;
+        protected EndpointAddress _remoteAddress;
 
         public ClientBaseType(ClientConfig config) {
             _config = config;
@@ -44,7 +45,6 @@ namespace HCS.BaseTypes {
                     RequireClientCertificate = true
                 });
             }
-
         }
 
         public EndpointAddress GetEndpointAddress(string endpointName) {

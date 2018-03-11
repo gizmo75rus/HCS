@@ -3,19 +3,20 @@ using System.Security.Cryptography.X509Certificates;
 using HCS.BaseTypes;
 using HCS.Globals;
 using HCS.Interaces;
-using HCS.Service.Async.HouseManagement.v11_2_0_6;
+using HCS.Service.Async.HouseManagement.v11_10_0_13;
 
 namespace HCS.Providers {
+
     /// <summary>
-    /// Служит для отпавки запросов к сервису
+    /// Служит для отпавки запросов к сервису HouseManagementAsync
     /// </summary>
     /// <typeparam name="TRequest">тип запроса</typeparam>
     /// <typeparam name="TAck">тип объекта ответа</typeparam>
-    public class HouseManagmentProvider:  ClientBaseType,IProviderBase {
-        public EndPointNames EndPointName => EndPointNames.HouseManagementAsync;
+    public class HouseManagmentProvider:  ClientBaseType,IProvider {
+        public EndPoints EndPoint => EndPoints.HouseManagementAsync;
 
         public HouseManagmentProvider(ClientConfig config) : base(config) {
-            remoteAddress = GetEndpointAddress(Constants.EndPointPath.HouseManagementAsync);
+            _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
         /// <summary>
@@ -23,19 +24,19 @@ namespace HCS.Providers {
         /// </summary>
         /// <param name="request">Запрос</param>
         /// <returns>Объект реализующий IAck</returns>
-        IAck IProviderBase.Send<T>(T request)
+        public IAck Send<T>(T request)
         {
-            using (var proxy = new HouseManagementPortsTypeAsyncClient(_binding, remoteAddress)) {
+            using (var client = new HouseManagementPortsTypeAsyncClient(_binding, _remoteAddress)) {
 
-                proxy.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
+                client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
 
                 if (!base._config.IsPPAK) {
-                    proxy.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
-                    proxy.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
+                    client.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
+                    client.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
                 }
 
                 if (!base._config.UseTunnel) {
-                    proxy.ClientCredentials.ClientCertificate.SetCertificate(
+                    client.ClientCredentials.ClientCertificate.SetCertificate(
                      StoreLocation.CurrentUser,
                      StoreName.My,
                      X509FindType.FindByThumbprint,
@@ -44,45 +45,45 @@ namespace HCS.Providers {
 
                 switch (typeof(T).Name) {
                     case nameof(importAccountDataRequest):
-                        return proxy.importAccountData(request as importAccountDataRequest).AckRequest.Ack;
+                        return client.importAccountData(request as importAccountDataRequest).AckRequest.Ack;
                     case nameof(importCharterDataRequest):
-                        return proxy.importCharterData(request as importCharterDataRequest).AckRequest.Ack;
+                        return client.importCharterData(request as importCharterDataRequest).AckRequest.Ack;
                     case nameof(importContractDataRequest):
-                        return proxy.importContractData(request as importContractDataRequest).AckRequest.Ack;
+                        return client.importContractData(request as importContractDataRequest).AckRequest.Ack;
                     case nameof(importHouseOMSDataRequest):
-                        return proxy.importHouseOMSData(request as importHouseOMSDataRequest).AckRequest.Ack;
+                        return client.importHouseOMSData(request as importHouseOMSDataRequest).AckRequest.Ack;
                     case nameof(importHouseRSODataRequest):
-                        return proxy.importHouseRSOData(request as importHouseRSODataRequest).AckRequest.Ack;
+                        return client.importHouseRSOData(request as importHouseRSODataRequest).AckRequest.Ack;
                     case nameof(importHouseUODataRequest):
-                        return proxy.importHouseUOData(request as importHouseUODataRequest).AckRequest.Ack;
+                        return client.importHouseUOData(request as importHouseUODataRequest).AckRequest.Ack;
                     case nameof(importMeteringDeviceDataRequest1):
-                        return proxy.importMeteringDeviceData(request as importMeteringDeviceDataRequest1).AckRequest.Ack;
+                        return client.importMeteringDeviceData(request as importMeteringDeviceDataRequest1).AckRequest.Ack;
                     case nameof(importNotificationDataRequest):
-                        return proxy.importNotificationData(request as importNotificationDataRequest).AckRequest.Ack;
+                        return client.importNotificationData(request as importNotificationDataRequest).AckRequest.Ack;
                     case nameof(importPublicPropertyContractRequest1):
-                        return proxy.importPublicPropertyContract(request as importPublicPropertyContractRequest1).AckRequest.Ack;
+                        return client.importPublicPropertyContract(request as importPublicPropertyContractRequest1).AckRequest.Ack;
                     case nameof(importSupplyResourceContractDataRequest):
-                        return proxy.importSupplyResourceContractData(request as importSupplyResourceContractDataRequest).AckRequest.Ack;
+                        return client.importSupplyResourceContractData(request as importSupplyResourceContractDataRequest).AckRequest.Ack;
                     case nameof(importVotingProtocolRequest1):
-                        return proxy.importVotingProtocol(request as importVotingProtocolRequest1).AckRequest.Ack;
+                        return client.importVotingProtocol(request as importVotingProtocolRequest1).AckRequest.Ack;
                     case nameof(exportAccountDataRequest):
-                        return proxy.exportAccountData(request as exportAccountDataRequest).AckRequest.Ack;
+                        return client.exportAccountData(request as exportAccountDataRequest).AckRequest.Ack;
                     case nameof(exportAccountIndividualServicesRequest1):
-                        return proxy.exportAccountIndividualServices(request as exportAccountIndividualServicesRequest1).AckRequest.Ack;
+                        return client.exportAccountIndividualServices(request as exportAccountIndividualServicesRequest1).AckRequest.Ack;
                     case nameof(exportCAChDataRequest):
-                        return proxy.exportCAChData(request as exportCAChDataRequest).AckRequest.Ack;
+                        return client.exportCAChData(request as exportCAChDataRequest).AckRequest.Ack;
                     case nameof(exportHouseDataRequest):
-                        return proxy.exportHouseData(request as exportHouseDataRequest).AckRequest.Ack;
+                        return client.exportHouseData(request as exportHouseDataRequest).AckRequest.Ack;
                     case nameof(exportMeteringDeviceDataRequest1):
-                        return proxy.exportMeteringDeviceData(request as exportMeteringDeviceDataRequest1).AckRequest.Ack;
+                        return client.exportMeteringDeviceData(request as exportMeteringDeviceDataRequest1).AckRequest.Ack;
                     case nameof(exportStatusCAChDataRequest):
-                        return proxy.exportStatusCAChData(request as exportStatusCAChDataRequest).AckRequest.Ack;
+                        return client.exportStatusCAChData(request as exportStatusCAChDataRequest).AckRequest.Ack;
                     case nameof(exportStatusPublicPropertyContractRequest1):
-                        return proxy.exportStatusPublicPropertyContract(request as exportStatusPublicPropertyContractRequest1).AckRequest.Ack;
+                        return client.exportStatusPublicPropertyContract(request as exportStatusPublicPropertyContractRequest1).AckRequest.Ack;
                     case nameof(exportSupplyResourceContractDataRequest):
-                        return proxy.exportSupplyResourceContractData(request as exportSupplyResourceContractDataRequest).AckRequest.Ack;
+                        return client.exportSupplyResourceContractData(request as exportSupplyResourceContractDataRequest).AckRequest.Ack;
                     case nameof(exportVotingProtocolRequest1):
-                        return proxy.exportVotingProtocol(request as exportVotingProtocolRequest1).AckRequest.Ack;
+                        return client.exportVotingProtocol(request as exportVotingProtocolRequest1).AckRequest.Ack;
                     default:
                         throw new ArgumentException($"{request.GetType().Name} - Не верный тип аргумента");
                 }
@@ -98,18 +99,16 @@ namespace HCS.Providers {
         /// <returns></returns>
         public bool GetResult(IAck ack, out IGetStateResult result)
         {
-            result = null;
-
-            using (var proxy = new HouseManagementPortsTypeAsyncClient(_binding, remoteAddress)) {
-                proxy.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
+            using (var client = new HouseManagementPortsTypeAsyncClient(_binding, _remoteAddress)) {
+                client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
 
                 if (!base._config.IsPPAK) {
-                    proxy.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
-                    proxy.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
+                    client.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
+                    client.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
                 }
 
                 if (!base._config.UseTunnel) {
-                    proxy.ClientCredentials.ClientCertificate.SetCertificate(
+                    client.ClientCredentials.ClientCertificate.SetCertificate(
                      StoreLocation.CurrentUser,
                      StoreName.My,
                      X509FindType.FindByThumbprint,
@@ -118,12 +117,14 @@ namespace HCS.Providers {
 
                 try {
 
-                    var responce = proxy.getState(new getStateRequest1 {
+                    var responce = client.getState(new getStateRequest1 {
                         RequestHeader = new RequestHeader {
-                            MessageGUID = ack.MessageGUID,
+                            MessageGUID = Guid.NewGuid().ToString().ToLower(),
                             ItemElementName = ItemChoiceType.orgPPAGUID,
                             Item = _config.OrgPPAGUID,
                             Date = DateTime.Now
+                        },getStateRequest = new getStateRequest {
+                            MessageGUID = ack.MessageGUID
                         }
                     });
 
@@ -135,6 +136,7 @@ namespace HCS.Providers {
                 catch (System.ServiceModel.FaultException<Fault> ex) {
                     throw new Exception($"При получении результата выполнения запроса на ГИС произошла ошибка:{ex.Detail.ErrorCode},{ex.Detail.ErrorMessage}");
                 }
+                result = null;
                 return false;
             }
         }
