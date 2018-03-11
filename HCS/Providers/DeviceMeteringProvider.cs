@@ -2,8 +2,9 @@
 using HCS.Service.Async.DeviceMetering.v11_10_0_13;
 using HCS.BaseTypes;
 using HCS.Globals;
-using HCS.Interaces;
+using HCS.Interfaces;
 using System.Security.Cryptography.X509Certificates;
+using HCS.Helpers;
 
 namespace HCS.Providers
 {
@@ -37,12 +38,7 @@ namespace HCS.Providers
                 try {
 
                     var responce = client.getState(new getStateRequest1 {
-                        RequestHeader = new RequestHeader {
-                            MessageGUID = Guid.NewGuid().ToString().ToLower(),
-                            ItemElementName = ItemChoiceType1.orgPPAGUID,
-                            Item = _config.OrgPPAGUID,
-                            Date = DateTime.Now
-                        },
+                        RequestHeader = RequestHelper.Create<RequestHeader>(_config.OrgPPAGUID, _config.Role),
                         getStateRequest = new getStateRequest {
                             MessageGUID = ack.MessageGUID
                         }

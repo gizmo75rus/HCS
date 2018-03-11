@@ -1,6 +1,6 @@
 ﻿using HCS.Globals;
 
-namespace HCS.Interaces
+namespace HCS.Interfaces
 {
     public interface IProvider
     {

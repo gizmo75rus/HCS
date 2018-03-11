@@ -1,4 +1,4 @@
-﻿using HCS.Interaces;
+﻿using HCS.Interfaces;
 
 namespace HCS.BaseTypes
 {

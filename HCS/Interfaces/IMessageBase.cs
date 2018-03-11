@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HCS.Globals;
 
-namespace HCS.Interaces
+namespace HCS.Interfaces
 {
     public interface IMessageBase
     {

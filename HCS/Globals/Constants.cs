@@ -84,4 +84,25 @@ namespace HCS.Globals {
         GetResultTimeout,
         EndLive,
     }
+
+    /// <summary>
+    /// Роли организаций в ГИС
+    /// </summary>
+    public enum OrganizationRoles
+    {
+        /// <summary>
+        /// УК/ТСЖ/ЖСК
+        /// </summary>
+        UK,
+
+        /// <summary>
+        /// Ресурсоснабжающая организация
+        /// </summary>
+        RSO,
+
+        /// <summary>
+        /// Расчетный центр
+        /// </summary>
+        RC,
+    }
 }

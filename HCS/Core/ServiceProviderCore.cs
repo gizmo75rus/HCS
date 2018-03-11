@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HCS.BaseTypes;
 using HCS.Globals;
-using HCS.Interaces;
+using HCS.Interfaces;
 using HCS.Providers;
 
 namespace HCS.Core

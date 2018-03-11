@@ -1,4 +1,6 @@
-﻿namespace HCS.BaseTypes {
+﻿using HCS.Globals;
+
+namespace HCS.BaseTypes {
     /// <summary>
     /// Конфигурация клиента
     /// </summary>
@@ -27,5 +29,10 @@
         /// true - использовать адреса ППАК стенда иначе СИТ
         /// </summary>
         public bool IsPPAK { get; set; }
+
+        /// <summary>
+        /// Роль
+        /// </summary>
+        public OrganizationRoles Role { get; set; }
     }
 }
