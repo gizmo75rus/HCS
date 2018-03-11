@@ -21,7 +21,7 @@ namespace HCS.Core
             _faultPolicy = new Polices.SoupFaultPolicy();
         }
         
-        public Result<object> Send(ref IMessageBase message) 
+        public Result<object> Send(ref IMessageType message) 
         {
             var result = new Result<object>();
 
@@ -29,13 +29,12 @@ namespace HCS.Core
                 var provider = _providerLocator[message.EndPoint];
                 if (provider == null)
                     throw new ArgumentOutOfRangeException($"Для конечной точки {Enum.GetName(typeof(EndPoints),message.EndPoint)} отсутсвует зарегистрированный провайдер");
-                message.SendDate = DateTime.Now;
+
 
                 // Отправить запрос
                 var ack = provider.Send(message.Request);
-
+                message.SendDate = DateTime.Now;
                 message.ResponceGUID = Guid.Parse(ack.MessageGUID);
-                message.ResponceDate = DateTime.Now;
                 message.MessageStatus = MessageStatuses.SendOk;
                 result.Value = ack;
 

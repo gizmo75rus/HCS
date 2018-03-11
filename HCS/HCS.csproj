@@ -56,17 +56,25 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseTypes\ClientBaseType.cs" />
+    <Compile Include="BaseTypes\MessagePackage.cs" />
+    <Compile Include="BaseTypes\SoapClientBase.cs" />
     <Compile Include="BaseTypes\ClientConfig.cs" />
+    <Compile Include="BaseTypes\DtoObject.cs" />
     <Compile Include="BaseTypes\Result.cs" />
+    <Compile Include="Core\MessageBroker.cs" />
+    <Compile Include="Core\MessageFactory.cs" />
     <Compile Include="Core\ServiceProviderCore.cs" />
+    <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\CertificateHelper.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Interfaces\IAck.cs" />
+    <Compile Include="Interfaces\IConvertor.cs" />
     <Compile Include="Interfaces\IFault.cs" />
     <Compile Include="Interfaces\IGetStateResult.cs" />
-    <Compile Include="Interfaces\IMessageBase.cs" />
+    <Compile Include="Interfaces\IHeaderType.cs" />
+    <Compile Include="Interfaces\IMessageType.cs" />
+    <Compile Include="Interfaces\IMessageBroker.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="MessageInspectorBehavior.cs" />
     <Compile Include="Polices\SoupFaultPolicy.cs" />
@@ -78,7 +86,7 @@
     <Compile Include="Providers\DeviceMeteringProvider.cs" />
     <Compile Include="Providers\HouseManagmentProvider.cs" />
     <Compile Include="ServicePointConfig.cs" />
-    <Compile Include="Service\AckImplement.cs" />
+    <Compile Include="Service\OuterContracts.cs" />
     <Compile Include="Service\Async\Bills.v11.10.0.13.cs" />
     <Compile Include="Service\Async\DeviceMetering.v11.10.0.13.cs" />
     <Compile Include="Service\Async\HouseManagement.v11.10.0.13.cs" />
@@ -99,7 +107,9 @@
       <Name>Xades</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Convertors\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

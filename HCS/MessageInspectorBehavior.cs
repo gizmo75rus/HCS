@@ -1,19 +1,17 @@
-﻿using HCS.Globals;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Xades.Implementations;
+using HCS.Globals;
 
-namespace HCS {
+namespace HCS
+{
     internal class MessageInspectorBehavior : IClientMessageInspector {
         public object BeforeSendRequest(ref Message request, IClientChannel channel) {
             try

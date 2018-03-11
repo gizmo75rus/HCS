@@ -8,12 +8,12 @@ using System.ServiceModel.Channels;
 using System.Text;
 
 namespace HCS.BaseTypes {
-    public abstract class ClientBaseType {
+    public abstract class SoapClientBase {
         public ClientConfig _config;
         protected CustomBinding _binding;
         protected EndpointAddress _remoteAddress;
 
-        public ClientBaseType(ClientConfig config) {
+        public SoapClientBase(ClientConfig config) {
             _config = config;
 
             _binding = new CustomBinding();

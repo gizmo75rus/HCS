@@ -11,7 +11,7 @@ namespace HCS.Providers {
     /// <summary>
     /// Служит для отправки запросов к сервису HouseManagementAsync
     /// </summary>
-    public class HouseManagmentProvider : ClientBaseType, IProvider
+    public class HouseManagmentProvider : SoapClientBase, IProvider
     {
         public EndPoints EndPoint => EndPoints.HouseManagementAsync;
 

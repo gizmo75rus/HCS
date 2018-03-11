@@ -7,7 +7,7 @@ using HCS.Globals;
 
 namespace HCS.Interfaces
 {
-    public interface IMessageBase
+    public interface IMessageType
     {
         /// <summary>
         /// Конечная точка (адресат)
@@ -19,11 +19,6 @@ namespace HCS.Interfaces
         /// </summary>
         Type RequestType { get; set; }
 
-        /// <summary>
-        /// Ожидаемый тип ответа
-        /// </summary>
-        Type ResultType { get; set; }
-        
         /// <summary>
         /// Запрос
         /// </summary>
@@ -50,9 +45,9 @@ namespace HCS.Interfaces
         DateTime SendDate { get; set; }
 
         /// <summary>
-        /// Дата получения ответа
+        /// Дата завершения обработки и возврата ответа от ГИС
         /// </summary>
-        DateTime ResponceDate { get; set; }
+        DateTime CompliteDate { get; set; }
 
         /// <summary>
         /// Статус сообщения

@@ -9,7 +9,7 @@ using HCS.Helpers;
 
 namespace HCS.Providers
 {
-    public class BillsProvider : ClientBaseType, IProvider
+    public class BillsProvider : SoapClientBase, IProvider
     {
         public EndPoints EndPoint => EndPoints.BillsAsync;
 
