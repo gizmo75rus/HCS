@@ -60,7 +60,7 @@ namespace HCS
 
                     Console.WriteLine($"Получение результата, попытка {attems}");
 
-                    if (provider.GetResult(ack, out result))
+                    if (provider.TryGetResult(ack, out result))
                         break;
 
                     Thread.Sleep(5000);

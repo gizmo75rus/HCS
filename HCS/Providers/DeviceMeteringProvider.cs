@@ -17,7 +17,7 @@ namespace HCS.Providers
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
-        public bool GetResult(IAck ack, out IGetStateResult result)
+        public bool TryGetResult(IAck ack, out IGetStateResult result)
         {
             using (var client = new DeviceMeteringPortTypesAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -35,23 +35,18 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                try {
-
-                    var responce = client.getState(new getStateRequest1 {
-                        RequestHeader = RequestHelper.Create<RequestHeader>(_config.OrgPPAGUID, _config.Role),
-                        getStateRequest = new getStateRequest {
-                            MessageGUID = ack.MessageGUID
-                        }
-                    });
-
-                    if (responce.getStateResult.RequestState == 3) {
-                        result = responce.getStateResult;
-                        return true;
+                var responce = client.getState(new getStateRequest1 {
+                    RequestHeader = RequestHelper.Create<RequestHeader>(_config.OrgPPAGUID, _config.Role),
+                    getStateRequest = new getStateRequest {
+                        MessageGUID = ack.MessageGUID
                     }
+                });
+
+                if (responce.getStateResult.RequestState == 3) {
+                    result = responce.getStateResult;
+                    return true;
                 }
-                catch (System.ServiceModel.FaultException<Fault> ex) {
-                    throw new Exception($"При получении результата выполнения запроса на ГИС произошла ошибка:{ex.Detail.ErrorCode},{ex.Detail.ErrorMessage}");
-                }
+
                 result = null;
                 return false;
             }

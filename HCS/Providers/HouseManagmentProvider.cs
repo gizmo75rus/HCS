@@ -9,14 +9,14 @@ using HCS.Service.Async.HouseManagement.v11_10_0_13;
 namespace HCS.Providers {
 
     /// <summary>
-    /// Служит для отпавки запросов к сервису HouseManagementAsync
+    /// Служит для отправки запросов к сервису HouseManagementAsync
     /// </summary>
-    /// <typeparam name="TRequest">тип запроса</typeparam>
-    /// <typeparam name="TAck">тип объекта ответа</typeparam>
-    public class HouseManagmentProvider:  ClientBaseType,IProvider {
+    public class HouseManagmentProvider : ClientBaseType, IProvider
+    {
         public EndPoints EndPoint => EndPoints.HouseManagementAsync;
 
-        public HouseManagmentProvider(ClientConfig config) : base(config) {
+        public HouseManagmentProvider(ClientConfig config) : base(config)
+        {
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
@@ -98,7 +98,7 @@ namespace HCS.Providers {
         /// <param name="ack"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool GetResult(IAck ack, out IGetStateResult result)
+        public bool TryGetResult(IAck ack, out IGetStateResult result)
         {
             using (var client = new HouseManagementPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -116,23 +116,18 @@ namespace HCS.Providers {
                      base._config.CertificateThumbprint);
                 }
 
-                try {
-
-                    var responce = client.getState(new getStateRequest1 {
-                        RequestHeader = RequestHelper.Create<RequestHeader>(_config.OrgPPAGUID, _config.Role),
-                        getStateRequest = new getStateRequest {
-                            MessageGUID = ack.MessageGUID
-                        }
-                    });
-
-                    if (responce.getStateResult.RequestState == 3) {
-                        result = responce.getStateResult;
-                        return true;
+                var responce = client.getState(new getStateRequest1 {
+                    RequestHeader = RequestHelper.Create<RequestHeader>(_config.OrgPPAGUID, _config.Role),
+                    getStateRequest = new getStateRequest {
+                        MessageGUID = ack.MessageGUID
                     }
+                });
+
+                if (responce.getStateResult.RequestState == 3) {
+                    result = responce.getStateResult;
+                    return true;
                 }
-                catch (System.ServiceModel.FaultException<Fault> ex) {
-                    throw new Exception($"При получении результата выполнения запроса на ГИС произошла ошибка:{ex.Detail.ErrorCode},{ex.Detail.ErrorMessage}");
-                }
+
                 result = null;
                 return false;
             }

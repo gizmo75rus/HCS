@@ -23,6 +23,6 @@ namespace HCS.Interfaces
         /// <param name="ack"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        bool GetResult(IAck ack, out IGetStateResult result);
+        bool TryGetResult(IAck ack, out IGetStateResult result);
     }
 }
