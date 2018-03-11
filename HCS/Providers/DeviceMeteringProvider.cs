@@ -38,10 +38,13 @@ namespace HCS.Providers
 
                     var responce = client.getState(new getStateRequest1 {
                         RequestHeader = new RequestHeader {
-                            MessageGUID = ack.MessageGUID,
+                            MessageGUID = Guid.NewGuid().ToString().ToLower(),
                             ItemElementName = ItemChoiceType1.orgPPAGUID,
                             Item = _config.OrgPPAGUID,
                             Date = DateTime.Now
+                        },
+                        getStateRequest = new getStateRequest {
+                            MessageGUID = ack.MessageGUID
                         }
                     });
 
