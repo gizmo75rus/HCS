@@ -1,6 +1,6 @@
 ﻿using HCS.Globals;
 
-namespace HCS.Interaces
+namespace HCS.Interfaces
 {
     public interface IProvider
     {
@@ -23,6 +23,6 @@ namespace HCS.Interaces
         /// <param name="ack"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        bool GetResult(IAck ack, out IGetStateResult result);
+        bool TryGetResult(IAck ack, out IGetStateResult result);
     }
 }

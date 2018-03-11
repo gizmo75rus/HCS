@@ -1,17 +1,16 @@
-﻿using HCS.Providers;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 using HCS.Service.Async.HouseManagement.v11_10_0_13;
 using HCS.BaseTypes;
-using System.Security.Cryptography.X509Certificates;
+using HCS.Interfaces;
+using HCS.Providers;
 using HCS.Helpers;
-using HCS.Interaces;
+
 using System.Threading;
 
-namespace HCS {
+namespace HCS
+{
     class Program {
         static void Main(string[] args) {
 
@@ -31,25 +30,17 @@ namespace HCS {
                 IsPPAK = false,
                 CertificateThumbprint = cert.Item2,
                 OrgPPAGUID = "b14c8b87-6d0d-4854-a97c-74d34e1a8ca1",
-                OrgEntityGUID = "c3ffd8b6-cda3-4eb5-9696-30fee607c8b3"
-
+                OrgEntityGUID = "c3ffd8b6-cda3-4eb5-9696-30fee607c8b3",
+                Role = Globals.OrganizationRoles.UK
             };
 
-            //7263796e-1d5a-4535-8def-93315e8975db
             var request = new exportHouseDataRequest {
-                RequestHeader = new RequestHeader {
-                    ItemElementName = ItemChoiceType.orgPPAGUID,
-                    Item = config.OrgPPAGUID,
-                    Date = DateTime.Now,
-                    MessageGUID = Guid.NewGuid().ToString().ToLower(),
-                },
+                RequestHeader = RequestHelper.Create<RequestHeader>(config.OrgPPAGUID,config.Role),
                 exportHouseRequest = new exportHouseRequest {
                     Id = Globals.Constants.SignElementId,
                     FIASHouseGuid = "7263796e-1d5a-4535-8def-93315e8975db",
                 }
             };
-
-          
 
             try
             {
@@ -69,7 +60,7 @@ namespace HCS {
 
                     Console.WriteLine($"Получение результата, попытка {attems}");
 
-                    if (provider.GetResult(ack, out result))
+                    if (provider.TryGetResult(ack, out result))
                         break;
 
                     Thread.Sleep(5000);
@@ -78,6 +69,10 @@ namespace HCS {
 
                 result.Items.OfType<ErrorMessageType>().ToList().ForEach(x => {
                     Console.WriteLine($"В ответе имеется ошибка {x.ErrorCode}{x.Description}");
+                });
+
+                result.Items.OfType<exportHouseResultType>().ToList().ForEach(x=> {
+                    Console.WriteLine($"Получен объект {x.HouseUniqueNumber}");
                 });
 
                 Console.WriteLine($"ОК");

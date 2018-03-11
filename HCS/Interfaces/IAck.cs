@@ -1,4 +1,4 @@
-﻿namespace HCS.Interaces
+﻿namespace HCS.Interfaces
 {
     public interface IAck
     {

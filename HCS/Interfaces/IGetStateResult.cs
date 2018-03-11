@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCS.Interaces
+namespace HCS.Interfaces
 {
-    public interface IFault
+    public interface IGetStateResult
     {
-        string ErrorCode { get; set; }
-        string ErrorMessage { get; set; }
+        object[] Items { get; set; }
     }
 }

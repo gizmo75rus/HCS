@@ -1,4 +1,4 @@
-﻿using HCS.Interaces;
+﻿using HCS.Interfaces;
 
 namespace HCS.Service.Async.HouseManagement.v11_10_0_13 {
     public partial class AckRequestAck : IAck { }
