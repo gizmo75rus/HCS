@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HCS.Interfaces;
 
 namespace HCS.BaseTypes
 {
-    public class DtoObject
+    public class DtoObject:IDto
     {
         public int ID { get; set; }
-        public Guid TransportGUID { get; set; }
-
     }
 }

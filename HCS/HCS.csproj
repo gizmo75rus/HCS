@@ -56,23 +56,28 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTypes\ActionResult.cs" />
     <Compile Include="BaseTypes\MessagePackage.cs" />
     <Compile Include="BaseTypes\SoapClientBase.cs" />
     <Compile Include="BaseTypes\ClientConfig.cs" />
     <Compile Include="BaseTypes\DtoObject.cs" />
     <Compile Include="BaseTypes\Result.cs" />
+    <Compile Include="Converters\AccountConverter.cs" />
     <Compile Include="Core\MessageBroker.cs" />
     <Compile Include="Core\MessageFactory.cs" />
     <Compile Include="Core\ServiceProviderCore.cs" />
+    <Compile Include="Dto\AccountDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\CertificateHelper.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
     <Compile Include="Interfaces\IAck.cs" />
-    <Compile Include="Interfaces\IConvertor.cs" />
+    <Compile Include="Interfaces\IConverter.cs" />
+    <Compile Include="Interfaces\IDto.cs" />
     <Compile Include="Interfaces\IFault.cs" />
     <Compile Include="Interfaces\IGetStateResult.cs" />
     <Compile Include="Interfaces\IHeaderType.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IMessageType.cs" />
     <Compile Include="Interfaces\IMessageBroker.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
@@ -85,6 +90,7 @@
     <Compile Include="Providers\BillsProvider.cs" />
     <Compile Include="Providers\DeviceMeteringProvider.cs" />
     <Compile Include="Providers\HouseManagmentProvider.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="ServicePointConfig.cs" />
     <Compile Include="Service\OuterContracts.cs" />
     <Compile Include="Service\Async\Bills.v11.10.0.13.cs" />
@@ -107,9 +113,7 @@
       <Name>Xades</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Convertors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
