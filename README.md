@@ -8,10 +8,10 @@
 
 **ServicePointConfig** для настройки tls соединений с поддержкой ГОСТ 
 
-**HouseManagmentProvider** реализует обобщенный интерфейс **IProviderBase** и наследуется от **ClientBaseType** для настройки экземпляра клиента WCF (клиентскай авторизация и.т.п.) сервиса HouseManagmentAsync
-Для выполнения непосредственного запроса к ГИС ЖКХ необходимо создать экземпляр провайдера и вызвать метод Send
+**HouseManagmentProvider** пример реализии обобщенного интерфейса **IProviderBase** и наследуется от **ClientBaseType**, **ClientBaseType** служит для настройки экземпляра клиента WCF (клиентскай авторизация и.т.п.). сервиса ***HouseManagmentAsync***.
+Чтобы выполнить запрос к ГИС ЖКХ необходимо создать экземпляр провайдера и вызвать метод Send, метод Send возвращает объект реализущий IAck. Для получения результата запроса необходимо вызвать TryGetResult провайдера с передачей IAck и IGetStateResult в качестве параметра.
 
-Интерфейсы **IAck** и **IGetStateResult** реализуются в AckImplement.cs в ручную для каждого сервиса
+Интерфейсы **IAck** и **IGetStateResult** являются контрактами и реализуются в ***HCS\Service\OuterContracts.c***s в ручную для каждого сервиса.
 
 ## Xades
 Данный проект создан на основе https://github.com/Good-Samaritan/signature-demo-net и является форком билблиотеки Microsoft.Xades 
