@@ -21,10 +21,10 @@ namespace HCS.Polices
 
         public Actions GetAction(string errorCode)
         {
-            var policy = _policesByCode.Where(x => x.ErrorCodes.Contains(errorCode)).FirstOrDefault();
-            if (policy == null)
-                return Actions.Error;
-            return policy.Action;
+            if (_policesByCode.FirstOrDefault(x => x.ErrorCodes.Contains(errorCode)) is ActionByFault policy)
+                return policy.Action;
+
+            return Actions.Error;
         }
 
     }
