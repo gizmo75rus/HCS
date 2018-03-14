@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Security.Cryptography.X509Certificates;
 using HCS.Service.Async.HouseManagement.v11_10_0_13;
 using HCS.BaseTypes;
 using HCS.Interfaces;
 using HCS.Providers;
 using HCS.Helpers;
-
-using System.Threading;
 
 namespace HCS
 {
@@ -46,6 +45,7 @@ namespace HCS
             {
 
                 IProvider provider = new HouseManagmentProvider(config);
+                IGetStateResult result = new getStateResult();
 
                 Console.WriteLine("Отправка запроса");
                 var ack = provider.Send(request);
@@ -53,7 +53,6 @@ namespace HCS
                 Console.WriteLine($"Запрос принят в обработку, идентификатор ответа {ack.MessageGUID}");
 
                 
-                IGetStateResult result = new getStateResult();
                 int attems = 1;
 
                 while (true) {
@@ -71,12 +70,13 @@ namespace HCS
                     Console.WriteLine($"В ответе имеется ошибка {x.ErrorCode}{x.Description}");
                 });
 
-                result.Items.OfType<exportHouseResultType>().ToList().ForEach(x=> {
+                result.Items.OfType<exportHouseResultType>().ToList().ForEach(x => {
                     Console.WriteLine($"Получен объект {x.HouseUniqueNumber}");
                 });
 
                 Console.WriteLine($"ОК");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("При отправке сообщения произошла ошибка:"+ex.GetBaseException().Message);
             }

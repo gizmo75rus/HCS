@@ -59,7 +59,6 @@
     <Compile Include="BaseTypes\SoapClientBase.cs" />
     <Compile Include="BaseTypes\ClientConfig.cs" />
     <Compile Include="BaseTypes\Result.cs" />
-    <Compile Include="Core\ServiceProviderCore.cs" />
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\CertificateHelper.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
@@ -67,7 +66,6 @@
     <Compile Include="Interfaces\IFault.cs" />
     <Compile Include="Interfaces\IGetStateResult.cs" />
     <Compile Include="Interfaces\IHeaderType.cs" />
-    <Compile Include="Interfaces\IMessageType.cs" />
     <Compile Include="Interfaces\IProvider.cs" />
     <Compile Include="MessageInspectorBehavior.cs" />
     <Compile Include="Polices\SoupFaultPolicy.cs" />
