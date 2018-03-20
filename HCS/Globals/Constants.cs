@@ -19,7 +19,6 @@ namespace HCS.Globals {
                 if (_endPoints == null)
                     _endPoints = new Dictionary<EndPoints, string>();
 
-                _endPoints.Add(EndPoints.Bills, "ext-bus-bills-service/services/Bills");
                 _endPoints.Add(EndPoints.BillsAsync, "ext-bus-bills-service/services/BillsAsync");
                 _endPoints.Add(EndPoints.DeviceMetering, "ext-bus-device-metering-service/services/DeviceMetering");
                 _endPoints.Add(EndPoints.DeviceMeteringAsync, "ext-bus-device-metering-service/services/DeviceMeteringAsync");
@@ -32,6 +31,7 @@ namespace HCS.Globals {
                 _endPoints.Add(EndPoints.NsiCommonAsync, "ext-bus-nsi-common-service/services/NsiCommonAsync");
                 _endPoints.Add(EndPoints.OrgRegistryCommon, "ext-bus-org-registry-common-service/services/OrgRegistryCommon");
                 _endPoints.Add(EndPoints.OrgRegistryCommonAsync, "ext-bus-org-registry-common-service/services/OrgRegistryCommonAsync");
+                _endPoints.Add(EndPoints.PaymentsAsync, "ext-bus-payment-service/services/PaymentAsync");
 
             }
             public static string GetPath(EndPoints endPoint)
@@ -64,7 +64,8 @@ namespace HCS.Globals {
         Licenses,
         LicensesAsync,
         DeviceMetering,
-        DeviceMeteringAsync
+        DeviceMeteringAsync,
+        PaymentsAsync
     }
 
 
