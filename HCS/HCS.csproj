@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="BaseTypes\SoapClientBase.cs" />
     <Compile Include="BaseTypes\ClientConfig.cs" />
-    <Compile Include="BaseTypes\Result.cs" />
     <Compile Include="Globals\Constants.cs" />
     <Compile Include="Helpers\CertificateHelper.cs" />
     <Compile Include="Helpers\RequestHelper.cs" />
