@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HCS.Service.Async.Payment.v11_10_0_13;
+using System.Security.Cryptography.X509Certificates;
 using HCS.BaseTypes;
 using HCS.Globals;
-using HCS.Interfaces;
-using System.Security.Cryptography.X509Certificates;
 using HCS.Helpers;
+using HCS.Interfaces;
+using HCS.Service.Async.Nsi.v11_10_0_13;
 
 namespace HCS.Providers
 {
-    public class PaymentsProvider : SoapClientBase, IProvider
+    public class NsiProvider : SoapClientBase, IProvider
     {
-        public EndPoints EndPoint => EndPoints.PaymentsAsync;
-        public PaymentsProvider(ClientConfig config):base(config)
+        public EndPoints EndPoint => EndPoints.NsiAsync;
+        public NsiProvider(ClientConfig config) : base(config)
         {
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
         public IAck Send<T>(T request)
         {
-            using (var client = new PaymentPortsTypeAsyncClient(_binding, _remoteAddress)) {
+            using (var client = new NsiPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
-
                 if (!_config.IsPPAK) {
                     client.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
                     client.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
@@ -39,25 +34,31 @@ namespace HCS.Providers
                 }
 
                 switch (typeof(T).Name) {
-                    case nameof(exportPaymentDocumentDetailsRequest1):
-                        return client.exportPaymentDocumentDetails(request as exportPaymentDocumentDetailsRequest1).AckRequest.Ack;
-                    case nameof(importNotificationsOfOrderExecutionRequest1):
-                        return client.importNotificationsOfOrderExecution(request as importNotificationsOfOrderExecutionRequest1).AckRequest.Ack;
-                    case nameof(importNotificationsOfOrderExecutionCancellationRequest1):
-                        return client.importNotificationsOfOrderExecutionCancellation(request as importNotificationsOfOrderExecutionCancellationRequest1).AckRequest.Ack;
-                    case nameof(importSupplierNotificationsOfOrderExecutionRequest1):
-                        return client.importSupplierNotificationsOfOrderExecution(request as importSupplierNotificationsOfOrderExecutionRequest1).AckRequest.Ack;
+                    case nameof(exportDataProviderNsiItemRequest1):
+                        return client.exportDataProviderNsiItem(request as exportDataProviderNsiItemRequest1).AckRequest.Ack;
+                    case nameof(exportDataProviderPagingNsiItemRequest):
+                        return client.exportDataProviderPagingNsiItem(request as exportDataProviderPagingNsiItemRequest).AckRequest.Ack;
+                    case nameof(importAdditionalServicesRequest1):
+                        return client.importAdditionalServices(request as importAdditionalServicesRequest1).AckRequest.Ack;
+                    case nameof(importBaseDecisionMSPRequest1):
+                        return client.importBaseDecisionMSP(request as importBaseDecisionMSPRequest1).AckRequest.Ack;
+                    case nameof(importCapitalRepairWorkRequest1):
+                        return client.importCapitalRepairWork(request as importCapitalRepairWorkRequest1).AckRequest.Ack;
+                    case nameof(importMunicipalServicesRequest1):
+                        return client.importMunicipalServices(request as importMunicipalServicesRequest1).AckRequest.Ack;
+                    case nameof(importOrganizationWorksRequest1):
+                        return client.importOrganizationWorks(request as importOrganizationWorksRequest1).AckRequest.Ack;
                     default:
                         throw new ArgumentException($"{request.GetType().Name} - Не верный тип аргумента");
                 }
             }
+
         }
 
         public bool TryGetResult(IAck ack, out IGetStateResult result)
         {
-            using (var client = new PaymentPortsTypeAsyncClient(_binding, _remoteAddress)) {
+            using (var client = new NsiPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
-
                 if (!_config.IsPPAK) {
                     client.ClientCredentials.UserName.UserName = Constants.UserAuth.Name;
                     client.ClientCredentials.UserName.Password = Constants.UserAuth.Passwd;
@@ -86,7 +87,6 @@ namespace HCS.Providers
                 result = null;
                 return false;
             }
-
         }
     }
 }

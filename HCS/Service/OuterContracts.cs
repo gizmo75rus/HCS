@@ -72,7 +72,7 @@ namespace HCS.Service.Async.OrganizationsRegistry.v11_10_0_13
     public partial class HeaderType : IHeaderType { }
 }
 
-namespace HCS.Service.Async.OrganizationsRegistry.v11_10_0_13
+namespace HCS.Service.Async.OrganizationsRegistryCommon.v11_10_0_13
 {
     public partial class AckRequestAck : IAck { }
     public partial class getStateResult : IGetStateResult { }

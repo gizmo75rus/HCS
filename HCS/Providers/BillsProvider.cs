@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-
 using HCS.Service.Async.Bills.v11_10_0_13;
 using HCS.BaseTypes;
 using HCS.Globals;

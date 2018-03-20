@@ -73,6 +73,11 @@
     <Compile Include="Providers\BillsProvider.cs" />
     <Compile Include="Providers\DeviceMeteringProvider.cs" />
     <Compile Include="Providers\HouseManagmentProvider.cs" />
+    <Compile Include="Providers\LicensesProvider.cs" />
+    <Compile Include="Providers\NsiCommonProvider.cs" />
+    <Compile Include="Providers\NsiProvider.cs" />
+    <Compile Include="Providers\OrganizationsRegistryCommonProvider.cs" />
+    <Compile Include="Providers\OrganizationsRegistryProvider.cs" />
     <Compile Include="Providers\PaymentsProvider.cs" />
     <Compile Include="ServicePointConfig.cs" />
     <Compile Include="Service\OuterContracts.cs" />
