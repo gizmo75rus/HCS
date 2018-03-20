@@ -8,7 +8,7 @@ using HCS.Helpers;
 
 namespace HCS.Providers
 {
-    class DeviceMeteringProvider : SoapClientBase, IProvider
+    public class DeviceMeteringProvider : SoapClientBase, IProvider
     {
         public EndPoints EndPoint => EndPoints.DeviceMeteringAsync;
 
