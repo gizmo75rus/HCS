@@ -31,9 +31,11 @@ namespace HCS.Globals {
                 _endPoints.Add(EndPoints.NsiCommonAsync, "ext-bus-nsi-common-service/services/NsiCommonAsync");
                 _endPoints.Add(EndPoints.OrgRegistryCommon, "ext-bus-org-registry-common-service/services/OrgRegistryCommon");
                 _endPoints.Add(EndPoints.OrgRegistryCommonAsync, "ext-bus-org-registry-common-service/services/OrgRegistryCommonAsync");
+                _endPoints.Add(EndPoints.OrgRegistry, "ext-bus-org-registry-service/services/OrgRegistry");
+                _endPoints.Add(EndPoints.OrgRegistryAsync, "ext-bus-org-registry-service/services/OrgRegistryAsync");
                 _endPoints.Add(EndPoints.PaymentsAsync, "ext-bus-payment-service/services/PaymentAsync");
-
             }
+
             public static string GetPath(EndPoints endPoint)
             {
                 return _endPoints[endPoint];
@@ -51,6 +53,8 @@ namespace HCS.Globals {
     /// </summary>
     public enum EndPoints
     {
+        OrgRegistry,
+        OrgRegistryAsync,
         OrgRegistryCommon,
         OrgRegistryCommonAsync,
         NsiCommon,

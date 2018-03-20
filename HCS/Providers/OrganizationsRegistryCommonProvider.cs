@@ -8,10 +8,10 @@ using HCS.Service.Async.OrganizationsRegistryCommon.v11_10_0_13;
 
 namespace HCS.Providers
 {
-    public class OrganizationsRegistryCommon : SoapClientBase, IProvider
+    public class OrganizationsRegistryCommonProvider : SoapClientBase, IProvider
     {
         public EndPoints EndPoint => EndPoints.OrgRegistryCommonAsync;
-        public OrganizationsRegistryCommon(ClientConfig config) : base(config)
+        public OrganizationsRegistryCommonProvider(ClientConfig config) : base(config)
         {
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
