@@ -72,24 +72,6 @@ namespace HCS.Globals {
         PaymentsAsync
     }
 
-
-    /// <summary>
-    /// Статусы сообщения
-    /// </summary>
-    public enum MessageStatuses
-    {
-        Ready,
-        SendOk,
-        SendError,
-        SendCriticalError,
-        SendTimeout,
-        GetResultOk,
-        GetResultError,
-        GetResultCriticalError,
-        GetResultTimeout,
-        EndLive,
-    }
-
     /// <summary>
     /// Роли организаций в ГИС
     /// </summary>
