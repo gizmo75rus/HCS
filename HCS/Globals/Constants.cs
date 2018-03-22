@@ -3,7 +3,7 @@
 namespace HCS.Globals {
     public static class Constants
     {
-        internal const string SignElementId = "signed-data-container";
+        public const string SignElementId = "signed-data-container";
         public static class Address
         {
             public const string UriPPAK = "api.dom.gosuslugi.ru";
@@ -25,6 +25,7 @@ namespace HCS.Globals {
                 _endPoints.Add(EndPoints.HouseManagement, "ext-bus-home-management-service/services/HomeManagement");
                 _endPoints.Add(EndPoints.HouseManagementAsync, "ext-bus-home-management-service/services/HomeManagementAsync");
                 _endPoints.Add(EndPoints.Licenses, "ext-bus-licenses-service/services/Licenses");
+                _endPoints.Add(EndPoints.LicensesAsync, "ext-bus-licenses-service/services/LicensesAsync");
                 _endPoints.Add(EndPoints.Nsi, "ext-bus-nsi-service/services/Nsi");
                 _endPoints.Add(EndPoints.NsiAsync, "ext-bus-nsi-service/services/NsiAsync");
                 _endPoints.Add(EndPoints.NsiCommon, "ext-bus-nsi-common-service/services/NsiCommon");
