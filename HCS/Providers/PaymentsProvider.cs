@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 using HCS.Service.Async.Payment.v11_10_0_13;
 using HCS.BaseTypes;
 using HCS.Globals;
 using HCS.Interfaces;
-using System.Security.Cryptography.X509Certificates;
 using HCS.Helpers;
 
 namespace HCS.Providers
@@ -20,7 +16,7 @@ namespace HCS.Providers
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using (var client = new PaymentPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -38,7 +34,7 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(exportPaymentDocumentDetailsRequest1):
                         return client.exportPaymentDocumentDetails(request as exportPaymentDocumentDetailsRequest1).AckRequest.Ack;
                     case nameof(importNotificationsOfOrderExecutionRequest1):

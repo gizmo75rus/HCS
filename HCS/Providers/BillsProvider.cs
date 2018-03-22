@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using HCS.Service.Async.Bills.v11_10_0_13;
 using HCS.BaseTypes;
 using HCS.Globals;
 using HCS.Interfaces;
 using HCS.Helpers;
+using HCS.Service.Async.Bills.v11_10_0_13;
 
 namespace HCS.Providers
 {
@@ -52,7 +52,7 @@ namespace HCS.Providers
             }
         }
 
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using (var client = new BillsPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -70,7 +70,7 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(exportInsuranceProductRequest1):
                         return client.exportInsuranceProduct(request as exportInsuranceProductRequest1).AckRequest.Ack;
                     case nameof(exportNotificationsOfOrderExecutionRequest1):

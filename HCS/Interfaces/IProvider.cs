@@ -15,7 +15,7 @@ namespace HCS.Interfaces
         /// <typeparam name="T"></typeparam>
         /// <param name="request"></param>
         /// <returns></returns>
-        IAck Send<T>(T request);
+        IAck Send(object request);
 
         /// <summary>
         /// Получить результат выплнения запроса

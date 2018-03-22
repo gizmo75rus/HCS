@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using HCS.BaseTypes;
 using HCS.Globals;
 using HCS.Helpers;
@@ -20,7 +16,7 @@ namespace HCS.Providers
         {
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using (var client = new LicensePortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -37,7 +33,7 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(exportDisqualifiedPersonRequest1):
                         return client.exportDisqualifiedPerson(request as exportDisqualifiedPersonRequest1).AckRequest.Ack;
                     case nameof(exportLicenseRequest1):

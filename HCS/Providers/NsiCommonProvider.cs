@@ -6,7 +6,6 @@ using HCS.Helpers;
 using HCS.Interfaces;
 using HCS.Service.Async.NsiCommon.v11_10_0_13;
 
-
 namespace HCS.Providers
 {
     public class NsiCommonProvider : SoapClientBase, IProvider
@@ -17,7 +16,7 @@ namespace HCS.Providers
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
 
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using(var client = new NsiPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -34,7 +33,7 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(exportNsiItemRequest1):
                         return client.exportNsiItem(request as exportNsiItemRequest1).AckRequest.Ack;
                     case nameof(exportNsiListRequest1):

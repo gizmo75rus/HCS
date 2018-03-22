@@ -25,7 +25,7 @@ namespace HCS.Providers {
         /// </summary>
         /// <param name="request">Запрос</param>
         /// <returns>Объект реализующий IAck</returns>
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using (var client = new HouseManagementPortsTypeAsyncClient(_binding, _remoteAddress)) {
 
@@ -44,7 +44,7 @@ namespace HCS.Providers {
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(importAccountDataRequest):
                         return client.importAccountData(request as importAccountDataRequest).AckRequest.Ack;
                     case nameof(importCharterDataRequest):

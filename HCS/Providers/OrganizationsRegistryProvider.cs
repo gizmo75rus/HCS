@@ -16,7 +16,7 @@ namespace HCS.Providers
         {
             _remoteAddress = GetEndpointAddress(Constants.EndPointLocator.GetPath(EndPoint));
         }
-        public IAck Send<T>(T request)
+        public IAck Send(object request)
         {
             using(var client = new RegOrgPortsTypeAsyncClient(_binding, _remoteAddress)) {
                 client.Endpoint.EndpointBehaviors.Add(new MyEndpointBehavior());
@@ -34,7 +34,7 @@ namespace HCS.Providers
                      base._config.CertificateThumbprint);
                 }
 
-                switch (typeof(T).Name) {
+                switch (request.GetType().Name) {
                     case nameof(importForeignBranchRequest1):
                         return client.importForeignBranch(request as importForeignBranchRequest1).AckRequest.Ack;
                     case nameof(importSubsidiaryRequest1):
