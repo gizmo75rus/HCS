@@ -8,7 +8,7 @@
 
 **ServicePointConfig** для настройки tls соединений с поддержкой ГОСТ 
 
-**HouseManagmentProvider** пример реализии обобщенного интерфейса **IProviderBase** и наследуется от **ClientBaseType**, **ClientBaseType** служит для настройки экземпляра клиента WCF (клиентскай авторизация и.т.п.). сервиса ***HouseManagmentAsync***.
+**HouseManagmentProvider** пример реализии обобщенного интерфейса **IProviderBase** и наследуется от **ClientBaseType**, **ClientBaseType** служит для настройки экземпляра клиента WCF (клиентской авторизация и.т.п.). сервиса ***HouseManagmentAsync***.
 Чтобы выполнить запрос к ГИС ЖКХ необходимо создать экземпляр провайдера и вызвать метод Send, метод Send возвращает объект реализущий IAck. Для получения результата запроса необходимо вызвать TryGetResult провайдера с передачей IAck и IGetStateResult в качестве параметра.
 
 Интерфейсы **IAck** и **IGetStateResult** являются контрактами и реализуются в ***HCS\Service\OuterContracts.c***s в ручную для каждого сервиса.
